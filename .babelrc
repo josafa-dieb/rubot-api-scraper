@@ -1,0 +1,22 @@
+{
+  "presets": [
+    "@babel/preset-env"
+  ],
+  "plugins": [
+    "minify-constant-folding",
+    "minify-dead-code-elimination",
+    "minify-flip-comparisons",
+    "minify-guarded-expressions",
+    "minify-infinity",
+    "minify-mangle-names",
+    "minify-numeric-literals",
+    "minify-replace",
+    "transform-inline-consecutive-adds",
+    "transform-member-expression-literals",
+    "transform-merge-sibling-variables",
+    "transform-minify-booleans",
+    "transform-property-literals",
+    "transform-simplify-comparison-operators",
+    "transform-undefined-to-void"
+  ]
+}
