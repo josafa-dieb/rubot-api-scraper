@@ -11,15 +11,22 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /node_modules|src\/API|dist/,
         use: {
           loader: 'babel-loader'
         }
+      },{
+        test: /\.js$/,
+        exclude: /node_modules/,
+        enforce: 'pre',
+        use: ['eslint-loader'],
       }
+
     ]
   },
   resolve: {
     extensions: ['.js']
   },
-  target: 'node', // Indica que o bundle será executado no ambiente Node.js
+  target: 'node', // Indica que o bundle será executado no ambiente Node.js,
+  
 };
