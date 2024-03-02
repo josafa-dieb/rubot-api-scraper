@@ -6,7 +6,7 @@ const Middlewares = async (req, res, next) => {
             const { cartao, matricula } = req.body
             req.infoCard = await new API(cartao, matricula).InfoCard()
             if (req.infoCard.error) {
-                response.status(400).send({
+                res.status(400).send({
                     error: true,
                     message: "Nao foi possivel carregar as informacoes do cartao"
                 })

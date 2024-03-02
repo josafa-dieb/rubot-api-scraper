@@ -1,0 +1,21 @@
+{
+    "env": {
+        "node": true,
+        "es6": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-unused-vars": "error",
+        "no-undef": "error",
+        "no-const-assign": "error",
+        "no-extra-semi": "error",
+        "no-unused-expressions": "error",
+        "no-unsafe-negation": "error",
+        "no-dupe-keys": "error",
+        "no-dupe-args": "error"
+    }
+}

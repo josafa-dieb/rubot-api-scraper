@@ -2,12 +2,11 @@
   "name": "rubot-api-scrappy",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/index.js",
-    "build-babel": "babel -d ./build ./src -s",
-    "build": "npx webpack --config webpack.config.js"
+    "start": "eslint ./ && node src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -22,28 +21,6 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.22.10",
-    "@babel/core": "^7.22.10",
-    "@babel/preset-env": "^7.22.10",
-    "babel-loader": "^9.1.3",
-    "babel-plugin-minify-constant-folding": "^0.5.0",
-    "babel-plugin-minify-dead-code-elimination": "^0.5.2",
-    "babel-plugin-minify-flip-comparisons": "^0.4.3",
-    "babel-plugin-minify-guarded-expressions": "^0.4.4",
-    "babel-plugin-minify-infinity": "^0.4.3",
-    "babel-plugin-minify-mangle-names": "^0.5.1",
-    "babel-plugin-minify-numeric-literals": "^0.4.3",
-    "babel-plugin-minify-replace": "^0.5.0",
-    "babel-plugin-transform-inline-consecutive-adds": "^0.4.3",
-    "babel-plugin-transform-member-expression-literals": "^6.9.4",
-    "babel-plugin-transform-merge-sibling-variables": "^6.9.5",
-    "babel-plugin-transform-minify-booleans": "^6.9.4",
-    "babel-plugin-transform-property-literals": "^6.9.4",
-    "babel-plugin-transform-simplify-comparison-operators": "^6.9.4",
-    "babel-plugin-transform-undefined-to-void": "^6.9.4",
-    "eslint-loader": "^4.0.2",
-    "webpack": "^5.88.2",
-    "webpack-cli": "^5.1.4",
-    "webpack-node-externals": "^3.0.0"
+    "eslint": "^8.57.0"
   }
 }

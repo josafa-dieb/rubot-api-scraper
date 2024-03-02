@@ -106,20 +106,20 @@ export default function GetPaymentLinkPagTesouro(matricula, cartao, quantidade) 
                         message: '✅ <b>Pagamento gerado! clique no botão abaixo para prosseguir.</b>\n\nVocê será redirecionado para o site do PagTesouro com uma sessão do seu pagamento. Verifique se seus dados estão corretos e não atualize a página nem troque de janela durante o pagamento.\n\nFormas de pagamento disponíveis\n💠 Pix\n💳 Cartão de crédito (Mercado Pago, PicPay)\n',
                         link: link
                     }
-                }).catch(err => {
+                }).catch(() => {
                     return {
                         error: true,
                         message: 'Pagamentos temporariamente indisponíves, tente novamente mais tarde!'
                     }
                 })
 
-            }).catch(err => {
+            }).catch(() => {
                 return {
                     error: true,
                     message: 'Pagamentos temporariamente indisponíves, tente novamente mais tarde!'
                 }
             })
-        }).catch(err => {
+        }).catch(() => {
             return {
                 error: true,
                 message: 'Pagamentos temporariamente indisponíves, tente novamente mais tarde!'
