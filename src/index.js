@@ -20,7 +20,7 @@ app.use('/cartao', CartaoRouters)
 
 const options = {}
 
-http.createServer(options, app).listen(8181, () => {
+http.createServer(options, app).listen(process.env.PORT || 3000, () => {
     console.log(`
     [LTI - Iniciativa Robôs de Russas]
     - Project: RUBOT
