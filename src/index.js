@@ -1,7 +1,8 @@
 import express from "express";
-import http from "http"
+// import http from "http"
 import timeout from 'connect-timeout'
 import CartaoRouters from './Routers/CartaoRouters.js'
+import { createHandler } from 'azure-function-express'
 
 const app = express();
 
@@ -18,13 +19,16 @@ app.get('/', function (req, res) {
 
 app.use('/cartao', CartaoRouters)
 
-const options = {}
 
-http.createServer(options, app).listen(process.env.PORT || 3000, () => {
-    console.log(`
-    [LTI - Iniciativa Robôs de Russas]
-    - Project: RUBOT
-    - Status: Online
-    - Version: 2.2.0
-    `);
-})
+export default createHandler(app)
+
+// const options = {}
+
+// http.createServer(options, app).listen(process.env.PORT || 3000, () => {
+//     console.log(`
+//     [LTI - Iniciativa Robôs de Russas]
+//     - Project: RUBOT
+//     - Status: Online
+//     - Version: 2.2.0
+//     `);
+// })
