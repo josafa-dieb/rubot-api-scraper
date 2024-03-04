@@ -1,7 +1,7 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
+# Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - rubot-api-scraper
+name: Build and deploy Node.js project to Azure Function App - rubot-api-scraper
 
 on:
   push:
@@ -9,21 +9,28 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  AZURE_FUNCTIONAPP_PACKAGE_PATH: '.' # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '20.x' # set this to the node version to use (supports 8.x, 10.x, 12.x)
+
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
+      - name: 'Checkout GitHub Action'
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js version
+      - name: Setup Node ${{ env.NODE_VERSION }} Environment
         uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: ${{ env.NODE_VERSION }}
 
-      - name: npm install, build, and test
+      - name: 'Resolve Project Dependencies Using Npm'
+        shell: bash
         run: |
+          pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           npm install
+          popd
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
@@ -59,10 +66,11 @@ jobs:
           tenant-id: ${{ secrets.__tenantidsecretname__ }}
           subscription-id: ${{ secrets.__subscriptionidsecretname__ }}
 
-      - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
+      - name: 'Run Azure Functions Action'
+        uses: Azure/functions-action@v1
+        id: fa
         with:
           app-name: 'rubot-api-scraper'
           slot-name: 'production'
-          package: .
+          package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
+          
