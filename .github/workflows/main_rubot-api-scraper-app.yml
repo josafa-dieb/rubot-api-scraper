@@ -65,5 +65,5 @@ jobs:
         with:
           app-name: 'rubot-api-scraper-app'
           slot-name: 'Production'
-          package: .
+          package: './release/package.json'
           
