@@ -2,7 +2,6 @@ import express from "express";
 import http from "http"
 import timeout from 'connect-timeout'
 import CartaoRouters from './Routers/CartaoRouters.js'
-import { createHandler } from 'azure-function-express'
 
 const app = express();
 
@@ -18,9 +17,6 @@ app.get('/', function (req, res) {
 })
 
 app.use('/cartao', CartaoRouters)
-
-
-export default createHandler(app)
 
 const options = {}
 
