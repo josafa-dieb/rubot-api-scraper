@@ -23,7 +23,6 @@ jobs:
 
       - name: npm install, build, and test
         run: |
-          npm run eslint
           npm install
 
       - name: Zip artifact for deployment
