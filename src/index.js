@@ -2,6 +2,7 @@ import express from "express";
 import http from "http"
 import timeout from 'connect-timeout'
 import CartaoRouters from './Routers/CartaoRouters.js'
+import CardapioRouters from './Routers/CardapioRouters.js'
 
 const app = express();
 
@@ -17,6 +18,7 @@ app.get('/', function (req, res) {
 })
 
 app.use('/cartao', CartaoRouters)
+app.use('/cardapio', CardapioRouters)
 
 const options = {}
 
