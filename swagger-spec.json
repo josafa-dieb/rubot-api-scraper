@@ -111,7 +111,7 @@
         "tags": [
           "Cartão"
         ],
-        "summary": "Busca histórico de refeições e recargas do cartão",
+        "summary": "Busca histórico de refeições e recargas do cartão.",
         "requestBody": {
           "required": true,
           "content": {
@@ -161,7 +161,7 @@
         "tags": [
           "Cartão"
         ],
-        "summary": "Busca histórico de refeições do cartão",
+        "summary": "Busca histórico de refeições do cartão.",
         "requestBody": {
           "required": true,
           "content": {
@@ -211,7 +211,7 @@
         "tags": [
           "Cartão"
         ],
-        "summary": "Busca histórico de recargas do cartão",
+        "summary": "Busca histórico de recargas do cartão.",
         "requestBody": {
           "required": true,
           "content": {
@@ -249,6 +249,36 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/erro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cardapio": {
+      "post": {
+        "tags": [
+          "Cardápio"
+        ],
+        "summary": "Busca cardápio pelo Campus e pelo dia.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/consultaCardapio"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cardapio"
                 }
               }
             }
@@ -302,6 +332,81 @@
           "aluno",
           "saldo"
         ]
+      },
+      "consultaCardapio": {
+        "type": "object",
+        "properties": {
+          "campus": {
+            "type": "string",
+            "enum": ["fortaleza", "russas", "sobral", "quixada", "crateus"],
+            "example": "russas"
+          },
+          "data": {
+            "type": "string",
+            "format": "date",
+            "example":"2000-01-20"
+          }
+        },
+        "required": [
+          "campus"
+        ]
+      },
+      "cardapio": {
+        "type": "object",
+        "properties": {
+          "almoco": {
+            "$ref": "#/components/schemas/cardapioRefeicao"
+          },
+          "jantar": {
+            "$ref": "#/components/schemas/cardapioRefeicao"
+          }
+        },
+        "required": [
+          "almoco",
+          "jantar"
+        ]
+      },
+      "cardapioRefeicao": {
+        "type": "object",
+        "properties": {
+          "principal": {
+            "$ref": "#/components/schemas/elementoCardapio"
+          },
+          "vegetariano": {
+            "$ref": "#/components/schemas/elementoCardapio"
+          },
+          "salada": {
+            "$ref": "#/components/schemas/elementoCardapio"
+          },
+          "guarnicao": {
+            "$ref": "#/components/schemas/elementoCardapio"
+          },
+          "acompanhamento": {
+            "$ref": "#/components/schemas/elementoCardapio"
+          },
+          "suco": {
+            "$ref": "#/components/schemas/elementoCardapio"
+          },
+          "sobremesa": {
+            "$ref": "#/components/schemas/elementoCardapio"
+          }
+        },
+        "required": [
+          "principal",
+          "vegetariano",
+          "salada",
+          "guarnicao",
+          "acompanhamento",
+          "suco",
+          "sobremesa"
+        ]
+      },
+      "elementoCardapio": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "example": "Item do cardápio (Contém Lactose)"
+        }
       },
       "recarga": {
         "type": "object",
