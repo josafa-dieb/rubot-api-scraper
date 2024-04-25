@@ -1,6 +1,6 @@
 {
   "name": "rubot-api-scrappy",
-  "version": "1.0.0",
+  "version": "2.2.1",
   "description": "",
   "type": "module",
   "main": "src/index.js",

@@ -14,7 +14,7 @@ app.get('/', function (req, res) {
     [LTI - Iniciativa Robôs de Russas]
     - Project: RUBOT
     - Status: Online
-    - Version: 2.2.0
+    - Version: 2.2.1
     `)
 })
 
@@ -29,6 +29,6 @@ http.createServer(options, app).listen(process.env.PORT || 3000, () => {
     [LTI - Iniciativa Robôs de Russas]
     - Project: RUBOT
     - Status: Online
-    - Version: 2.2.0
+    - Version: 2.2.1
     `);
 })
