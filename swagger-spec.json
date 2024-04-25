@@ -205,6 +205,56 @@
           }
         }
       }
+    },
+    "/cartao/historico/recargas": {
+      "post": {
+        "tags": [
+          "Cartão"
+        ],
+        "summary": "Busca histórico de recargas do cartão",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cartao"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/historicoRecargas"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/erro"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/erro"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -297,6 +347,42 @@
           "required": [
             "data",
             "operacao"
+          ]
+        }
+      },
+      "historicoRecargas": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string",
+              "format": "date-time",
+              "example": "01-01-2000 00:00:00"
+            },
+            "operation": {
+              "type": "string",
+              "example": "Utilização do Cartão"
+            },
+            "currentValue": {
+              "type": "string",
+              "example": "25"
+            },
+            "rechargedValue": {
+              "type": "string",
+              "example": "20"
+            },
+            "lastValue": {
+              "type": "string",
+              "example": "5"
+            }
+          },
+          "required": [
+            "date",
+            "operation",
+            "currentValue",
+            "rechargedValue",
+            "lastValue"
           ]
         }
       },
