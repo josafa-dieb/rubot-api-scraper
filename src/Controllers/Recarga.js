@@ -3,7 +3,6 @@ import GetPaymentLinkPagTesouro from "../API/ScrappyPagTesouro.js"
 export default async (request, response) => {
     if (!request.body.quantidade) {
         response.status(400).send({
-            error: 400,
             message: "Voce precisa informar a quantidade de creditos"
         })
         return

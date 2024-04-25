@@ -32,7 +32,7 @@ export default async function getCardapio(campus, date) {
         'crateus': 6
     }
 
-    const webPage = await axios.get(`https://www.ufc.br/restaurante/cardapio/${campusCodes[campus]}-restaurante-universitario-de-${campus}/${date}`)
+    const webPage = await axios.get(`https://www.ufc.br/restaurante/cardapio/${campusCodes[campus]}-restaurante-universitario-de-${campus}/${date ?? ''}`)
 
     const $ = load(webPage.data)
 

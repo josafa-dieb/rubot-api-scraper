@@ -7,7 +7,6 @@ const Middlewares = async (req, res, next) => {
             req.infoCard = await new API(cartao, matricula).InfoCard()
             if (req.infoCard.error) {
                 res.status(400).send({
-                    error: true,
                     message: "Nao foi possivel carregar as informacoes do cartao"
                 })
             } else {
@@ -16,13 +15,13 @@ const Middlewares = async (req, res, next) => {
 
         } else {
             res.status(400).send({
-                error: 400,
                 message: "Bad Request"
             })
         }
     } else {
-        res.status(408).send('RequestTimeOut')
-        console.log("Connection Timeout")
+        res.status(408).send({
+            message: "RequestTimeOut"
+        })
     }
 }
 export default Middlewares
