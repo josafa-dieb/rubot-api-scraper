@@ -104,84 +104,52 @@
             }
           }
         }
-      },
-      "put": {
+      }
+    },
+    "/cartao/historico": {
+      "post": {
         "tags": [
-          "Posts"
+          "Cartão"
         ],
-        "summary": "Update a post by id.",
-        "description": "",
-        "responses": {
-          "204": {
-            "description": "Success"
-          },
-          "400": {
-            "description": "Invalid body"
-          },
-          "401": {
-            "description": "Invalid JWT token"
-          },
-          "422": {
-            "description": "Unprocessable entity"
-          }
-        },
-        "security": [
-          {
-            "jwtAuth": []
-          }
-        ],
+        "summary": "Busca histórico de usos e recargas do cartão",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/postContent"
+                "$ref": "#/components/schemas/cartao"
               }
             }
           }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Posts"
-        ],
-        "summary": "Delete a post by id.",
-        "description": "",
+        },
         "responses": {
-          "204": {
-            "description": "Success"
-          },
-          "401": {
-            "description": "Invalid JWT token"
-          },
-          "422": {
-            "description": "Unprocessable entity"
-          }
-        }
-      }
-    },
-    "/users": {
-      "post": {
-        "tags": [
-          "Users"
-        ],
-        "summary": "Create an user.",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/historico"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Invalid body"
-          }
-        },
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/user"
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/erro"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/erro"
+                }
               }
             }
           }
@@ -291,6 +259,31 @@
           "cartao",
           "quantidade"
         ]
+      },
+      "historico": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "string",
+              "format": "date-time",
+              "example": "01-01-2000 00:00:00"
+            },
+            "operacao": {
+              "type": "string",
+              "example": "Utilização do Cartão"
+            },
+            "detalhes": {
+              "type": "string",
+              "example": "Refeição: Almoço"
+            }
+          },
+          "required": [
+            "data",
+            "operacao"
+          ]
+        }
       },
       "linkRecarga": {
         "type": "object",
