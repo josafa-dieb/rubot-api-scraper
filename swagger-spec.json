@@ -1,0 +1,287 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "UFC RU API",
+    "description": "API de consulta e recarga de créditos no cartão do restaurante universitário",
+    "version": "2.2.1"
+  },
+  "paths": {
+    "/cartao": {
+      "post": {
+        "summary": "Busca dados do cartão.",
+        "tags": [
+          "Cartão"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cartao"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cartaoDetalhado"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/erro"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/erro"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cartao/recarga": {
+      "post": {
+        "tags": [
+          "Cartão"
+        ],
+        "summary": "Gera um link de recarga para o cartão.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cartao"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/detailedPost"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Post not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Update a post by id.",
+        "description": "",
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "400": {
+            "description": "Invalid body"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        },
+        "security": [
+          {
+            "jwtAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/postContent"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Delete a post by id.",
+        "description": "",
+        "responses": {
+          "204": {
+            "description": "Success"
+          },
+          "401": {
+            "description": "Invalid JWT token"
+          },
+          "422": {
+            "description": "Unprocessable entity"
+          }
+        }
+      }
+    },
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Create an user.",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Invalid body"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get authorization token.",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/jwtToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid body"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/user"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "cartao": {
+        "type": "object",
+        "properties": {
+          "matricula": {
+            "type": "string",
+            "example": "123456"
+          },
+          "cartao": {
+            "type": "string",
+            "example": "1234567890"
+          }
+        },
+        "required": [
+          "matricula",
+          "cartao"
+        ]
+      },
+      "cartaoDetalhado": {
+        "type": "object",
+        "properties": {
+          "matricula": {
+            "type": "string",
+            "example": "123456"
+          },
+          "cartao": {
+            "type": "string",
+            "example": "1234567890"
+          },
+          "aluno": {
+            "type": "string",
+            "example": "José da Silva"
+          },
+          "saldo": {
+            "type": "number",
+            "example": 50
+          }
+        },
+        "required": [
+          "matricula",
+          "cartao",
+          "aluno",
+          "saldo"
+        ]
+      },
+      "recarga": {
+        "type": "object",
+        "properties": {
+          "matricula": {
+            "type": "string",
+            "example": "123456"
+          },
+          "cartao": {
+            "type": "string",
+            "example": "1234567890"
+          }
+        },
+        "required": [
+          "matricula",
+          "cartao"
+        ]
+      },
+      "erro": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Descrição do erro"
+          }
+        },
+        "required": [
+          "message"
+        ]
+      }
+    }
+  }
+}
