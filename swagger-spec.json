@@ -67,7 +67,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/cartao"
+                "$ref": "#/components/schemas/recarga"
               }
             }
           }
@@ -78,13 +78,30 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/detailedPost"
+                  "$ref": "#/components/schemas/linkRecarga"
                 }
               }
             }
           },
-          "404": {
-            "description": "Post not found"
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/erro"
+                }
+              }
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/erro"
+                }
+              }
+            }
           }
         }
       },
@@ -263,11 +280,33 @@
           "cartao": {
             "type": "string",
             "example": "1234567890"
+          },
+          "quantidade": {
+            "type": "number",
+            "example": 20
           }
         },
         "required": [
           "matricula",
-          "cartao"
+          "cartao",
+          "quantidade"
+        ]
+      },
+      "linkRecarga": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Pagamento gerado!"
+          },
+          "link": {
+            "type": "string",
+            "example": "https://pagtesouro.tesouro.gov.br/#/pagamento?idSessao=415b0bab-68fc-4fd6-9426-50e8f0886f6b&tema=tema-light&btnConcluir=true"
+          }
+        },
+        "required": [
+          "message",
+          "link"
         ]
       },
       "erro": {
