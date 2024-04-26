@@ -1,5 +1,5 @@
-import request from "request";
 import * as cheerio from "cheerio";
+import fetch from "node-fetch";
 
 export default class API {
 
@@ -21,22 +21,21 @@ export default class API {
 
     async InfoCard() {
         return new Promise((resolve, reject) => {
-            request.post('https://si3.ufc.br/public/restauranteConsultarSaldo.do', {
-                form: {
-                    'codigoCartao': this.cartao,
-                    'matriculaAtreladaCartao': this.matricula
-                },
-                encoding: 'latin1',
-                rejectUnauthorized: false,
-                requestCert: true,
-                agent: false
-            },
-                (error, response, body) => {
-                    if (error) {
-                        reject(error);
-                    }
+            const data = new URLSearchParams()
 
-                    const $ = this.ScrapyData(body);
+            data.append('codigoCartao', this.cartao)
+            data.append('matriculaAtreladaCartao', this.matricula)
+
+            fetch('https://si3.ufc.br/public/restauranteConsultarSaldo.do', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: data
+            })
+                .then(res => res.text())
+                .then(res => {
+                    const $ = this.ScrapyData(res);
                     if (typeof ($) === `object`) {
                         return reject($)
                     }
@@ -61,8 +60,8 @@ export default class API {
                             };
                         }).get()
                     });
-                }
-            );
+                })
+                .catch(err => reject(err))
         })
     }
 
