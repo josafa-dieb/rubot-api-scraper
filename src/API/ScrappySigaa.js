@@ -33,9 +33,10 @@ export default class API {
                 },
                 body: data
             })
-                .then(res => res.text())
-                .then(res => {
-                    const $ = this.ScrapyData(res);
+                .then(res => res.arrayBuffer())
+                .then(buf => new TextDecoder('iso-8859-1').decode(buf))
+                .then(html => {
+                    const $ = this.ScrapyData(html);
                     if (typeof ($) === `object`) {
                         return reject($)
                     }
